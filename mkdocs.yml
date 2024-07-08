@@ -1,5 +1,8 @@
 site_name: 软件工程复习资料
 
+repo_name: xjsc01/SoftwareEngineeringReviewMaterials
+repo_url: https://github.com/xjsc01/SoftwareEngineeringReviewMaterials/
+
 markdown_extensions:
   - pymdownx.arithmatex:
       generic: true
