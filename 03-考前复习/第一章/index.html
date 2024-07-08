@@ -1,0 +1,2407 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/">
+      
+      
+        <link rel="next" href="../%E7%AC%AC%E4%B8%83%E7%AB%A0/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>第一章 - 软件工程复习资料</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--caution:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件工程复习资料" class="md-header__button md-logo" aria-label="软件工程复习资料" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件工程复习资料
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第一章
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  readme
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC2%E7%AB%A0%20%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6/" class="md-tabs__link">
+          
+  
+  01 复习讲义
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02-PPT/%E8%AF%BE%E4%BB%B6%E5%88%97%E8%A1%A8/" class="md-tabs__link">
+          
+  
+  02 PPT
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="md-tabs__link">
+          
+  
+  03 考前复习
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件工程复习资料" class="md-nav__button md-logo" aria-label="软件工程复习资料" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    软件工程复习资料
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    01 复习讲义
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            01 复习讲义
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC2%E7%AB%A0%20%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第2章 可行性研究
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC3%E7%AB%A0%20%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第3章 需求分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第5章 总体设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC6%E7%AB%A0%20%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 详细设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC7%E7%AB%A0%20%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 实现-编码方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../01-%E5%A4%8D%E4%B9%A0%E8%AE%B2%E4%B9%89/%E7%AC%AC8%E7%AB%A0%20%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    软件工程导论 – 第7章 实现-软件测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    02 PPT
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            02 PPT
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-PPT/%E8%AF%BE%E4%BB%B6%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课件列表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    03 考前复习
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            03 考前复习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    复习大纲
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第一章
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第一章
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是软件？软件的特点是什么？本质特征是什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什么是软件？软件的特点是什么？本质特征是什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件的特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      本质特征
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件危机的定义，软件危机的现象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="软件危机的定义，软件危机的现象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件危机的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      现象
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件可以有哪些分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="软件可以有哪些分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      按照功能分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      规模
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      开发划分
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      产生软件危机的原因？软件危机现在还存在吗？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="产生软件危机的原因？软件危机现在还存在吗？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件危机现在还存在吗？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      解决软件危机的途径是什么？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是软件工程？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什么是软件工程？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程的定义 ：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程研究的内容是什么？中心课题是什么？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程的基本原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程方法学
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件质量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      提高软件质量的手段
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是软件生命期？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      瀑布模型每一阶段的含义。瀑布模型的优缺点。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="瀑布模型每一阶段的含义。瀑布模型的优缺点。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      瀑布模型的各个阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      选取依据
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速原型、增量模型的定义，特点，选取依据。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速原型、增量模型的定义，特点，选取依据。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速原型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速原型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择依据：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      增量模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      螺旋模型的定义，适用的软件项目。
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件过程的基本活动
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程过程管理原则有哪些？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      敏捷模型解决什么问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xp" class="md-nav__link">
+    <span class="md-ellipsis">
+      极限编程（XP）关键词
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户故事
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scrum开发模型关键词
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E4%B8%83%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第七章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E4%B8%89%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第三章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E4%BA%8C%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第二章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E4%BA%94%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第五章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E5%85%AB%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第八章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E5%85%AD%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第六章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第十三章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC%E5%9B%9B%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第四章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是软件？软件的特点是什么？本质特征是什么？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什么是软件？软件的特点是什么？本质特征是什么？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件的特点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      本质特征
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件危机的定义，软件危机的现象
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="软件危机的定义，软件危机的现象">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件危机的定义
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      现象
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件可以有哪些分类
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="软件可以有哪些分类">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      按照功能分类
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      规模
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      开发划分
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      产生软件危机的原因？软件危机现在还存在吗？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="产生软件危机的原因？软件危机现在还存在吗？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件危机现在还存在吗？
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      解决软件危机的途径是什么？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是软件工程？
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="什么是软件工程？">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程的定义 ：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程研究的内容是什么？中心课题是什么？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程的基本原理
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程方法学
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件质量
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      提高软件质量的手段
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      什么是软件生命期？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      瀑布模型每一阶段的含义。瀑布模型的优缺点。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="瀑布模型每一阶段的含义。瀑布模型的优缺点。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      瀑布模型的各个阶段
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      选取依据
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速原型、增量模型的定义，特点，选取依据。
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速原型、增量模型的定义，特点，选取依据。">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      快速原型
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="快速原型">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      优点：
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      缺点
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      选择依据：
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      增量模型
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      螺旋模型的定义，适用的软件项目。
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件过程的基本活动
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      软件工程过程管理原则有哪些？
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      敏捷模型解决什么问题
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#xp" class="md-nav__link">
+    <span class="md-ellipsis">
+      极限编程（XP）关键词
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      用户故事
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scrum" class="md-nav__link">
+    <span class="md-ellipsis">
+      Scrum开发模型关键词
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="_1">第一章</h1>
+<h2 id="_2">什么是软件？软件的特点是什么？本质特征是什么？</h2>
+<h3 id="_3">软件定义</h3>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image1.png" />{width="6.3in"
+height="4.594153543307087in"}</p>
+<p>软件是一组计算机程序、相关数据以及文档所构成的集合，这些程序和数据文档用于操作计算机硬件和执行特定任务。</p>
+<ul>
+<li>
+<p>程序：按事先设计的功能和性能需求执行的指令序列 （数据结构＋算法 =
+    程序）</p>
+</li>
+<li>
+<p>数据：【软件的核心】是程序能正常操纵信息的数据结构</p>
+</li>
+<li>
+<p>文档：【配置文档是软件的一部分】与程序开发、维护和使用有关的图文材料</p>
+</li>
+</ul>
+<h3 id="_4">软件的特点</h3>
+<p>（1）软件是一种<strong>逻辑实体</strong>。</p>
+<p>（2）软件的开发，是人的<strong>智力的高度发挥</strong>，而不是传统意义上的硬件制造。</p>
+<p>（3）软件维护与硬件的维修有着本质的差别。</p>
+<p>（4）软件的开发和运行常常受到计算机系统的限制，对计算机系统有着不同程度的依赖性。</p>
+<p>（5）软件的开发至今尚未完全摆脱手工艺的开发方式，使软件的开发效率受到很大限制。</p>
+<p>（6）软件的开发是一个复杂的过程。</p>
+<p>（7）软件的成本非常高昂。</p>
+<p>（8）相当多的软件工作涉及到社会因素。</p>
+<h3 id="_5">本质特征</h3>
+<p><strong>复杂性、一致性、可变性、不可见性</strong></p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image2.png" />{width="6.3in"
+height="0.5961286089238845in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image3.png" />{width="6.3in"
+height="2.4108300524934383in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image4.png" />{width="6.3in"
+height="1.287166447944007in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image5.png" />{width="6.3in"
+height="1.279507874015748in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image6.png" />{width="6.3in"
+height="2.2440430883639544in"}</p>
+<h2 id="_6">软件危机的定义，软件危机的现象</h2>
+<h3 id="_7">软件危机的定义</h3>
+<p>在计算机软件的<strong>开发和维护</strong>过程中所遇到的 <strong>一系列严重</strong>问题。</p>
+<h3 id="_8">现象</h3>
+<ol>
+<li>
+<p>软件成本比重上升</p>
+</li>
+<li>
+<p>对软件开发成本和进度的估算很不准确</p>
+</li>
+<li>
+<p>质量很不可靠</p>
+</li>
+<li>
+<p>用户很不满意</p>
+</li>
+<li>
+<p>没有适当的文档难于维护</p>
+</li>
+<li>
+<p>供不应求：软件开发生产率跟不上计算机应用迅速深入的趋势</p>
+</li>
+</ol>
+<h2 id="_9">软件可以有哪些分类</h2>
+<h3 id="_10">按照功能分类</h3>
+<p>系统软件：与计算机硬件紧密配合，使计算机系统各个部件、
+相关的软件和数据协调、高效地工作。如操作系统、数据库管理系统（DBMS）、设备驱动程序以及通信处理程序、编译器</p>
+<p>应用软件：在特定的领域内开发，为特定目的服务。如CAD计算机辅助制造、
+计算机辅助教学系统、停车
+场管理系统，OA系统、ERP系统（财务、进销存、生产、 人力资源）。</p>
+<p>支撑软件（软件开发环境）：支撑各种软件 的开发与维护
+的软件。环境数据库、各种接口软件和工具组。</p>
+<h3 id="_11">规模</h3>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image7.png" />{width="6.3in"
+height="2.4862871828521436in"}</p>
+<h3 id="_12">开发划分</h3>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image8.png" />{width="6.3in"
+height="3.4616010498687664in"}</p>
+<h2 id="_13">产生软件危机的原因？软件危机现在还存在吗？</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image9.png" />{width="6.3in"
+height="3.1768208661417323in"}</p>
+<ol>
+<li>
+<p>软件不同于硬件，软件是逻辑部件而不是物理部件，缺乏可见性。</p>
+</li>
+<li>
+<p>软件不同于一般程序规模庞大，程序的复杂性随着程序规模的增加而呈指数上升。</p>
+</li>
+<li>
+<p>在软件的维护过程会对原来的设计进行更改修正。</p>
+</li>
+</ol>
+<pre><code>&lt;!-- --&gt;
+</code></pre>
+<ol>
+<li>
+<p>对用户的要求没有准确的认识就开始编写程序。</p>
+</li>
+<li>
+<p>把软件开发当做了程序编写，实际上程序编写只在很小一部分时间。</p>
+</li>
+<li>
+<p>轻视软件的维护，许多软件产品使用寿命长达十年甚至20年，在维护过程中需要不断拓展和改进原来的系统。</p>
+</li>
+</ol>
+<p><strong>重新整合：</strong></p>
+<ol>
+<li>
+<p><strong>客观原因：</strong></p>
+</li>
+<li>
+<p><strong>软件产品的本质特征：复杂性，一致性，可变性，不可见性</strong></p>
+</li>
+<li>
+<p><strong>维护数量不断膨胀</strong></p>
+</li>
+<li>
+<p><strong>主观原因：</strong></p>
+</li>
+<li>
+<p><strong>轻视维护</strong></p>
+</li>
+<li>
+<p><strong>开发==编码</strong></p>
+</li>
+<li>
+<p><strong>质量控制</strong></p>
+</li>
+<li>
+<p><strong>需求分析不合理</strong></p>
+</li>
+</ol>
+<h3 id="_14">软件危机现在还存在吗？</h3>
+<p>软件危机仍然存在，并且在当今时代可能比以往更复杂。以下是一些原因：</p>
+<ol>
+<li>
+<p><strong>复杂性增加</strong>：现代软件系统变得越来越复杂，涉及更多的功能、集成和依赖。这使得设计、开发、测试和维护变得更加困难。</p>
+</li>
+<li>
+<p><strong>快速变化的技术</strong>：新技术和工具不断涌现，开发团队需要不断学习和适应。这种快速变化可能导致项目延误和质量问题。</p>
+</li>
+<li>
+<p><strong>安全性问题</strong>：随着网络攻击的增加，软件安全性成为一个重大问题。确保软件的安全性需要大量的资源和专业知识。</p>
+</li>
+<li>
+<p><strong>用户期望提高</strong>：用户期望软件快速、稳定和易于使用。满足这些期望需要更多的时间和精力，特别是在用户需求不断变化的情况下。</p>
+</li>
+<li>
+<p><strong>全球化和分布式团队</strong>：越来越多的项目涉及全球分布的团队，这给沟通、协作和项目管理带来了挑战。</p>
+</li>
+<li>
+<p><strong>遗留系统</strong>：许多企业仍然依赖于老旧的遗留系统，这些系统难以维护和升级，与现代技术不兼容。</p>
+</li>
+<li>
+<p><strong>需求不明确</strong>：软件需求常常在项目进行过程中发生变化，导致范围蔓延和资源超支。</p>
+</li>
+</ol>
+<p>综上所述，虽然我们有了更好的工具和方法来管理软件开发，但软件危机的问题仍然存在，并且随着技术的进步和复杂性的增加而不断演变。</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image10.png" />{width="6.3in"
+height="3.554491469816273in"}<img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image11.png" />{width="6.3in"
+height="3.1221237970253717in"}</p>
+<h2 id="_15">解决软件危机的途径是什么？</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image12.png" />{width="6.3in"
+height="2.7190748031496064in"}</p>
+<h2 id="_16">什么是软件工程？</h2>
+<p>（课本定义）</p>
+<p>概括地说,软件工程是指导<strong>计算机软件开发和维护</strong>的一门<strong>工程学科</strong>。</p>
+<p>采用工程的<strong>既念、原理、技术和方法</strong>来<strong>开发与维护软件</strong>,把经过时间考验而证明正确的<strong>管理技术</strong>和当的能够得到的最好的<strong>技术方法结合起来</strong>，以经济地开发山高质量的软件并有效地维护它,这就是软件工程。</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image13.png" />{width="6.3in"
+height="2.048922790901137in"}</p>
+<h3 id="_17">软件工程的定义 ：</h3>
+<ol>
+<li>
+<p>应用计算机科学，数学以及管理科学等原理开发软件。</p>
+</li>
+<li>
+<p>借鉴传统工程的原则，方法。</p>
+</li>
+<li>
+<p>提高质量，降低成本为目的。</p>
+</li>
+</ol>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image14.png" />{width="6.3in"
+height="1.8449387576552931in"}</p>
+<h2 id="_18">软件工程研究的内容是什么？中心课题是什么？</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image15.png" />{width="6.3in"
+height="4.152130358705162in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image16.png" />{width="6.3in"
+height="4.2599343832021in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image17.png" />{width="6.3in"
+height="3.554676290463692in"}</p>
+<h2 id="_19">软件工程的基本原理</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image18.png" />{width="6.3in"
+height="3.941062992125984in"}</p>
+<h2 id="_20">软件工程方法学</h2>
+<p>目前使用得最广泛的两种软件工程方法学：生命周期方法学或结构化范型；面向对象方法学。</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image19.png" />{width="6.3in"
+height="2.996372484689414in"}</p>
+<h2 id="_21">软件质量</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image20.png" />{width="6.3in"
+height="3.118674540682415in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image21.png" />{width="6.3in"
+height="1.3961406386701662in"}</p>
+<h2 id="_22">提高软件质量的手段</h2>
+<p><strong>需求明确和管理</strong>：</p>
+<ul>
+<li>
+<p>确保需求清晰、明确，并且在开发过程中保持需求的管理和跟踪。</p>
+</li>
+<li>
+<p>采用需求管理工具，如JIRA、Confluence等。</p>
+</li>
+</ul>
+<p><strong>用户反馈和监控</strong>：</p>
+<ul>
+<li>
+<p>定期收集用户反馈，了解实际使用中的问题和需求，及时改进软件。</p>
+</li>
+<li>
+<p>实施应用性能监控（APM）工具，如New
+    Relic、Datadog等，实时监控软件运行状态和性能。</p>
+</li>
+</ul>
+<p><strong>文档和知识共享</strong>：</p>
+<ul>
+<li>
+<p>编写全面的文档，包括代码注释、架构文档和使用手册，帮助团队成员理解和维护系统。</p>
+</li>
+<li>
+<p>组织技术分享和培训，提高团队整体技术水平。</p>
+</li>
+</ul>
+<p><strong>使用现代开发方法</strong>：</p>
+<ul>
+<li>
+<p>采用敏捷开发（Agile）、精益开发（Lean）等方法，提高响应变化的能力和交付效率。</p>
+</li>
+<li>
+<p>实施DevOps实践，缩短开发与运营之间的距离，提升软件发布的频率和可靠性。</p>
+</li>
+</ul>
+<p><strong>持续集成和持续交付（CI/CD）</strong>：</p>
+<ul>
+<li>
+<p>采用持续集成和持续交付流程，确保代码在每次提交后自动构建、测试和部署。</p>
+</li>
+<li>
+<p>使用CI/CD工具，如Jenkins、CircleCI、Travis CI等。</p>
+</li>
+</ul>
+<p><strong>代码质量工具</strong>：</p>
+<ul>
+<li>
+<p>使用静态代码分析工具，如SonarQube、ESLint、Checkstyle等，检测代码中的潜在问题和不良实践。</p>
+</li>
+<li>
+<p>定期进行代码重构，保持代码简洁、可维护。</p>
+</li>
+</ul>
+<p><strong>代码审查和同行评审</strong>：</p>
+<ul>
+<li>
+<p>定期进行代码审查和同行评审，确保代码质量，减少错误和缺陷。</p>
+</li>
+<li>
+<p>使用工具如GitHub、GitLab的Pull Requests或Merge Requests。</p>
+</li>
+</ul>
+<p><strong>自动化测试</strong>：</p>
+<ul>
+<li>
+<p>实施单元测试、集成测试和端到端测试，确保代码在不同层面的正确性。</p>
+</li>
+<li>
+<p>使用自动化测试框架，如JUnit、Selenium、Cypress等。</p>
+</li>
+</ul>
+<p><strong>安全性审查</strong>：</p>
+<ul>
+<li>
+<p>进行安全性评估和渗透测试，发现和修复安全漏洞。</p>
+</li>
+<li>
+<p>遵循安全编码标准和最佳实践，确保软件的安全性。</p>
+</li>
+</ul>
+<h2 id="_23">什么是软件生命期？</h2>
+<p>一个软件从<strong>被提出开始研制</strong>至软件<strong>最终被废弃不再使用</strong>为止的全过程，称为软件生命期</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image22.png" />{width="2.375in"
+height="1.067088801399825in"}</p>
+<p>生命型模型的优点：</p>
+<ol>
+<li>
+<p>每个阶段的<strong>工作结果用书面形式描述出来</strong>，使得"不可见"的软件变成了"<strong>可见"的文档资料</strong>。</p>
+</li>
+<li>
+<p>以交付某种特定规格的文档作为标志某个阶段完成的里程碑，使"难于管理的思考过程"变为"<strong>可以管理的生产过程"</strong>。</p>
+</li>
+</ol>
+<p>分为三个周期：</p>
+<ol>
+<li>
+<p>软件定义时期：问题定义，可行性研究</p>
+</li>
+<li>
+<p>软件开发时期：需求分析，总体设计，详细设计，编码，测试</p>
+</li>
+<li>
+<p>软件运行时期：软件安装运行，维护</p>
+</li>
+</ol>
+<p>（不是重点）</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image23.png" />{width="6.3in"
+height="4.354989063867016in"}</p>
+<h2 id="_24">瀑布模型每一阶段的含义。瀑布模型的优缺点。</h2>
+<p>瀑布模型是软件开发生命周期中的一种传统方法，它<strong>将软件开发过程划分为一系列顺序的阶段</strong>。</p>
+<ol>
+<li>
+<p>每个阶段都必须在进入下一个阶段之前完成。</p>
+</li>
+<li>
+<p>并且一般不会回溯到前一个阶段。</p>
+</li>
+</ol>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image24.png" />{width="6.3in"
+height="4.081972878390201in"}</p>
+<p>每一阶段的含义（自己手拼的）</p>
+<h3 id="_25">瀑布模型的各个阶段</h3>
+<p>1. <strong>可行性研究（Feasibility Study）</strong></p>
+<p>确定项目<strong>是否值得进行</strong>，评估技术、经济和操作可行性。</p>
+<p>2. <strong>需求分析（Requirements Analysis）</strong></p>
+<p>收集和分析用户需求，编写<strong>需求规格说明书</strong>。</p>
+<p>3. <strong>设计（Design）</strong></p>
+<p>制定系统和软件的设计方案，包括架构设计和详细设计。</p>
+<p>4. <strong>编码（Implementation or Coding）</strong></p>
+<p>将设计文档转化为计算机可执行的代码。</p>
+<p>5. <strong>测试（Testing）</strong></p>
+<p>对代码进行测试，确保其满足需求且没有缺陷。</p>
+<p>6. <strong>运行和维护（Operation and Maintenance）</strong></p>
+<p>部署软件并进行日常维护和更新，修复bug，适应新需求。</p>
+<h3 id="_26">优点</h3>
+<ol>
+<li>
+<p>强调开发的<strong>阶段性</strong>：阶段间具有顺序性和依赖性</p>
+</li>
+<li>
+<p>强调早期计划及需求调查：<strong>推迟实现</strong>的观点</p>
+</li>
+<li>
+<p>强调<strong>评审，强调产品测试</strong>：质量保证的观点</p>
+</li>
+</ol>
+<h3 id="_27">缺点</h3>
+<ol>
+<li>
+<p>依赖于早期进行的唯一一次需求调查，不能适应需求的变化；</p>
+</li>
+<li>
+<p>由于是单一流程，开发中的经验教训不能反馈应用于本产品的过程；</p>
+</li>
+<li>
+<p>风险往往迟至后期的开发阶段才显露，因而失去及早纠正的机会。　　　　</p>
+</li>
+<li>
+<p>文档驱动的，这对于非专业的用户来说是难以阅读和理解的。</p>
+</li>
+</ol>
+<h3 id="_28">选取依据</h3>
+<ol>
+<li>
+<p>当需求很确定，有一个<strong>稳定的产品定义和很容易被理解的技术解决方案</strong>时，纯瀑布模型特别合适。</p>
+</li>
+<li>
+<p>当你对一个定义得很好的版本进行<strong>维护或将一个产品移植</strong>到一个新的平台上，瀑布模型也特别合适。</p>
+</li>
+<li>
+<p>对于那些容易理解但很复杂的项目，采用纯瀑布模型比较合适，因为可以用顺序方法处理问题。</p>
+</li>
+<li>
+<p>在质量需求高于成本需求和进度需求的时候，它尤为出色。</p>
+</li>
+<li>
+<p>当开发队伍的技术力量比较弱或者缺乏经验时，瀑布模型更为适合。</p>
+</li>
+</ol>
+<h2 id="_29">快速原型、增量模型的定义，特点，选取依据。</h2>
+<h3 id="_30">快速原型</h3>
+<p>快速建立起来的，可以在计算机上运行的程序，它所完成的功能往往是最终产品完成功能的一个子集，让用户在计算机上试用快速原型，通过实践了解目标系统的样貌。然后提出修改意见，重新建立原型并使用，一旦用户确认这个原型系统确实是他们想要的，就可以完成规格说明文档，这个文档就是用户的真实意愿。</p>
+<p>原型的分类：</p>
+<ul>
+<li>
+<p><strong>抛弃型原型：</strong>用于试验某些概念，试验完系统将无用处</p>
+</li>
+<li>
+<p><strong>进化型原型：</strong>原型系统不断被开发和被修正，最终它变为一个真正的系统。</p>
+</li>
+</ul>
+<h4 id="_31">优点：</h4>
+<ol>
+<li>
+<p>从实践中学习(Learning by doing)</p>
+</li>
+<li>
+<p>改善通信</p>
+</li>
+<li>
+<p><strong>改善用户参与</strong></p>
+</li>
+<li>
+<p><strong>使部分已知需求清晰化</strong></p>
+</li>
+<li>
+<p><strong>展示描述的一致性和完整性</strong></p>
+</li>
+<li>
+<p><strong>提高系统的实用性、可维护性</strong></p>
+</li>
+<li>
+<p><strong>节省开发的投入、缩短整个软件的开发周期</strong></p>
+</li>
+</ol>
+<h4 id="_32">缺点</h4>
+<ol>
+<li>
+<p>原型法要求开发者与用户密切接触，有时这是不可能的。例如外包软件。</p>
+</li>
+<li>
+<p>用户有时误解了原型的角色，例如他们可能误解原型应该和真实系统一样可靠。</p>
+</li>
+<li>
+<p>缺少项目标准，进化原型方法有点像编码修正。</p>
+</li>
+<li>
+<p>缺少控制，由于用户可能不断提出新要求，因而原型迭代的周期很难控制。</p>
+</li>
+<li>
+<p>额外的花费：研究结果表明构造一个原型可能需要10%额外花费。</p>
+</li>
+<li>
+<p>为了尽快实现原型，采用了不合适的技术，运行效率可能会受影响。</p>
+</li>
+</ol>
+<h4 id="_33">选择依据：</h4>
+<p>适用于<strong>用户驱动的系统</strong>（即需求模糊或随时间变化的系统）。</p>
+<h3 id="_34">增量模型</h3>
+<p><strong>增量模型</strong>也称为<strong>渐增模型</strong>，使用增量模型开发软件,把软件产品作为一系列的<strong>增量构件</strong>米设计、编码.集成和测试。每个构作由多个相互作用的模块构成井且能够完成特定的功能。第一个增量构作往往实现基本要求。</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image25.png" />{width="6.3in"
+height="3.598196631671041in"}</p>
+<p>应用场景：</p>
+<ol>
+<li>
+<p><strong>需求不完全明确的项目</strong></p>
+<p>a.  用户需求不清晰或可能会变化，通过逐步交付软件版本，可以不断调整和完善需求。</p>
+</li>
+<li>
+<p><strong>风险较高的项目</strong></p>
+<p>a.  通过逐步开发和交付，可以在早期发现并解决技术难题和潜在风险，减少项目失败的风险。</p>
+</li>
+<li>
+<p><strong>需要快速交付的项目</strong></p>
+<p>a.  可以先交付一个基本功能的版本，满足用户的急需，然后逐步增加功能，改进系统。</p>
+</li>
+<li>
+<p><strong>资源受限的项目</strong></p>
+<p>a.  可以根据现有资源逐步开发和交付，而不需要一次性投入大量资源。</p>
+</li>
+<li>
+<p><strong>复杂度较高的项目</strong></p>
+<p>a.  通过分阶段开发，可以逐步解决复杂问题，降低系统的复杂度和开发难度。</p>
+</li>
+<li>
+<p><strong>客户反馈重要的项目</strong></p>
+<p>a.  通过定期交付增量版本，获取用户的反馈，不断改进和优化软件系统。</p>
+</li>
+</ol>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image26.png" />{width="6.3in"
+height="3.073170384951881in"}</p>
+<h2 id="_35">螺旋模型的定义，适用的软件项目。</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image27.png" />{width="6.3in"
+height="4.725in"}</p>
+<p>螺旋模型基本的做法是在"瀑布模型" 的每一个开发阶段之前，引入非常严格
+的风险识别、风险分析和风险控制。直 到采取了消除风险的措施之后，才开始
+计划下一阶段的开发工作。否则，项目 就很可能被取消。 </p>
+<p>四个步骤：确定目标、风险分析、开发和验证、评价结果。</p>
+<p>优点：</p>
+<p>a.强调严格的全过程风险管理。</p>
+<p>b.强调各开发阶段的质量。</p>
+<p>c.提供机会检讨项目是否有价值继续下去。</p>
+<p>缺点：</p>
+<p>a.引入非常严格的风险识别，风险分析，和风险控制，这对风险管理</p>
+<p>的技能水平提出了很高的要求。</p>
+<p>b.这需要人员，资金，和时间的投入比较复杂，需要相当的风险评</p>
+<p>估技术，且成功依赖于这种技术。</p>
+<p>适用的软件</p>
+<ol>
+<li>
+<p><strong>大型复杂项目------</strong>逐步实现和集成各个模块，降低整体风险。</p>
+</li>
+<li>
+<p>存在较高的技术风险、市场风险或管理风险。</p>
+</li>
+<li>
+<p><strong>创新和前沿技术项目------</strong>逐步探索新技术的可行性和适用性。</p>
+</li>
+<li>
+<p><strong>需求不明确或易变的项目------</strong>不断获取用户反馈，逐步明确和完善需求，适应变化。</p>
+</li>
+</ol>
+<p>软件过程的基本活动</p>
+<ul>
+<li>- 分析、设计、实现、测试、维护</li>
+</ul>
+<p>chat版本：</p>
+<h2 id="_36">软件过程的基本活动</h2>
+<p>1. <strong>分析（Analysis）</strong></p>
+<ul>
+<li>分析是软件开发过程的起点，<strong>旨在明确和理解用户的需求</strong>。这个阶段涉及与客户、用户和其他利益相关者进行沟通，收集和记录他们对系统的功能和性能要求。通过需求分析，可以将模糊的用户需求转化为明确的系统需求，编写需求规格说明书（SRS），为后续的设计和开发奠定基础。</li>
+</ul>
+<p>2. <strong>设计（Design）</strong></p>
+<ul>
+<li>设计是<strong>将需求转化为软件系统的体系结构和详细设计的过程</strong>。在系统设计阶段，开发团队确定系统的整体结构，包括模块划分、接口设计和数据流。在详细设计阶段，对每个模块进行具体的设计，包括算法、数据结构和逻辑流程。设计文档记录了这些设计方案，为实现阶段提供蓝图和指导。</li>
+</ul>
+<p>3. <strong>实现（Implementation）</strong></p>
+<ul>
+<li><strong>实现是将设计文档中的设计转化为可执行代码的过程。</strong>在这一阶段，开发人员根据详细设计编写源代码，实现系统的各个功能模块。编码完成后，进行代码审查和评审，确保代码质量和规范性。版本控制系统（如Git）用于管理代码的版本和变更，确保代码库的有序和安全。</li>
+</ul>
+<p>4. <strong>测试（Testing）</strong></p>
+<ul>
+<li>测试是对软件系统进行验证和验证的过程，旨在确保系统符合需求且无缺陷。测试活动包括单元测试、集成测试、系统测试和验收测试。在单元测试中，对各个模块进行独立测试；在集成测试中，验证模块之间的接口和交互；在系统测试中，对整个系统进行全面测试；在验收测试中，与用户一起确认系统是否满足需求。通过这些测试活动，可以发现和修复系统中的缺陷，确保软件的质量。</li>
+</ul>
+<p>5. <strong>维护（Maintenance）</strong></p>
+<ul>
+<li>维护是软件系统在交付后的持续支持和改进过程。维护工作包括修复发现的缺陷、适应新的需求和环境、优化系统性能等。由于软件产品的使用寿命通常较长，维护工作占据了软件生命周期的很大一部分。通过及时和有效的维护，可以确保软件系统长期稳定运行，满足用户不断变化的需求。</li>
+</ul>
+<h2 id="_37">软件工程过程管理原则有哪些？</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image28.png" />{width="6.3in"
+height="3.523442694663167in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image29.png" />{width="6.3in"
+height="3.5116819772528434in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image30.png" />{width="6.3in"
+height="4.145764435695538in"}</p>
+<h2 id="_38">敏捷模型解决什么问题</h2>
+<p>软件开发的新挑战</p>
+<p>➢快速的市场进入时间，要求高生产率</p>
+<p>➢快速变化的需求</p>
+<p>➢快速发展的技术</p>
+<h2 id="xp">极限编程（XP）关键词</h2>
+<p>用户故事、简单设计、测试驱动开发 （TDD）、持续集成、重构、结对编程</p>
+<h2 id="_39">用户故事</h2>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image31.png" />{width="6.3in"
+height="1.4582666229221348in"}</p>
+<h2 id="scrum">Scrum开发模型关键词</h2>
+<p>Sprint、Backlog、Sprint Backlog</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image32.png" />{width="6.3in"
+height="3.0574540682414697in"}</p>
+<p><img alt="descript" src="../%E7%AC%AC%E4%B8%80%E7%AB%A0.media/media/image33.png" />{width="6.3in"
+height="1.2088812335958006in"}</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 复习大纲">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                复习大纲
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../%E7%AC%AC%E4%B8%83%E7%AB%A0/" class="md-footer__link md-footer__link--next" aria-label="下一页: 第七章">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第七章
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.top", "navigation.sections", "content.action.edit", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>

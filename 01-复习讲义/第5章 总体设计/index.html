@@ -1,0 +1,2484 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../%E7%AC%AC3%E7%AB%A0%20%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/">
+      
+      
+        <link rel="next" href="../%E7%AC%AC6%E7%AB%A0%20%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1/">
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.13">
+    
+    
+      
+        <title>第5章 总体设计 - 软件工程复习资料</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.7e359304.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+  
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+    
+    
+  
+  
+  <style>:root{--md-admonition-icon--note:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"/></svg>');--md-admonition-icon--abstract:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.5 1.75v11.5c0 .138.112.25.25.25h3.17a.75.75 0 0 1 0 1.5H2.75A1.75 1.75 0 0 1 1 13.25V1.75C1 .784 1.784 0 2.75 0h8.5C12.216 0 13 .784 13 1.75v7.736a.75.75 0 0 1-1.5 0V1.75a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13.274 9.537v-.001l-4.557 4.45a.75.75 0 0 1-1.055-.008l-1.943-1.95a.75.75 0 0 1 1.062-1.058l1.419 1.425 4.026-3.932a.75.75 0 1 1 1.048 1.074ZM4.75 4h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1 0-1.5ZM4 7.75A.75.75 0 0 1 4.75 7h2a.75.75 0 0 1 0 1.5h-2A.75.75 0 0 1 4 7.75Z"/></svg>');--md-admonition-icon--info:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"/></svg>');--md-admonition-icon--tip:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M3.499.75a.75.75 0 0 1 1.5 0v.996C5.9 2.903 6.793 3.65 7.662 4.376l.24.202c-.036-.694.055-1.422.426-2.163C9.1.873 10.794-.045 12.622.26 14.408.558 16 1.94 16 4.25c0 1.278-.954 2.575-2.44 2.734l.146.508.065.22c.203.701.412 1.455.476 2.226.142 1.707-.4 3.03-1.487 3.898C11.714 14.671 10.27 15 8.75 15h-6a.75.75 0 0 1 0-1.5h1.376a4.484 4.484 0 0 1-.563-1.191 3.835 3.835 0 0 1-.05-2.063 4.647 4.647 0 0 1-2.025-.293.75.75 0 0 1 .525-1.406c1.357.507 2.376-.006 2.698-.318l.009-.01a.747.747 0 0 1 1.06 0 .748.748 0 0 1-.012 1.074c-.912.92-.992 1.835-.768 2.586.221.74.745 1.337 1.196 1.621H8.75c1.343 0 2.398-.296 3.074-.836.635-.507 1.036-1.31.928-2.602-.05-.603-.216-1.224-.422-1.93l-.064-.221c-.12-.407-.246-.84-.353-1.29a2.425 2.425 0 0 1-.507-.441 3.075 3.075 0 0 1-.633-1.248.75.75 0 0 1 1.455-.364c.046.185.144.436.31.627.146.168.353.305.712.305.738 0 1.25-.615 1.25-1.25 0-1.47-.95-2.315-2.123-2.51-1.172-.196-2.227.387-2.706 1.345-.46.92-.27 1.774.019 3.062l.042.19a.884.884 0 0 1 .01.05c.348.443.666.949.94 1.553a.75.75 0 1 1-1.365.62c-.553-1.217-1.32-1.94-2.3-2.768L6.7 5.527c-.814-.68-1.75-1.462-2.692-2.619a3.737 3.737 0 0 0-1.023.88c-.406.495-.663 1.036-.722 1.508.116.122.306.21.591.239.388.038.797-.06 1.032-.19a.75.75 0 0 1 .728 1.31c-.515.287-1.23.439-1.906.373-.682-.067-1.473-.38-1.879-1.193L.75 5.677V5.5c0-.984.48-1.94 1.077-2.664.46-.559 1.05-1.055 1.673-1.353V.75Z"/></svg>');--md-admonition-icon--success:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M13.78 4.22a.75.75 0 0 1 0 1.06l-7.25 7.25a.75.75 0 0 1-1.06 0L2.22 9.28a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018L6 10.94l6.72-6.72a.75.75 0 0 1 1.06 0Z"/></svg>');--md-admonition-icon--question:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.92 6.085h.001a.749.749 0 1 1-1.342-.67c.169-.339.436-.701.849-.977C6.845 4.16 7.369 4 8 4a2.756 2.756 0 0 1 1.637.525c.503.377.863.965.863 1.725 0 .448-.115.83-.329 1.15-.205.307-.47.513-.692.662-.109.072-.22.138-.313.195l-.006.004a6.24 6.24 0 0 0-.26.16.952.952 0 0 0-.276.245.75.75 0 0 1-1.248-.832c.184-.264.42-.489.692-.661.103-.067.207-.132.313-.195l.007-.004c.1-.061.182-.11.258-.161a.969.969 0 0 0 .277-.245C8.96 6.514 9 6.427 9 6.25a.612.612 0 0 0-.262-.525A1.27 1.27 0 0 0 8 5.5c-.369 0-.595.09-.74.187a1.01 1.01 0 0 0-.34.398ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--warning:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/></svg>');--md-admonition-icon--failure:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M2.344 2.343h-.001a8 8 0 0 1 11.314 11.314A8.002 8.002 0 0 1 .234 10.089a8 8 0 0 1 2.11-7.746Zm1.06 10.253a6.5 6.5 0 1 0 9.108-9.275 6.5 6.5 0 0 0-9.108 9.275ZM6.03 4.97 8 6.94l1.97-1.97a.749.749 0 0 1 1.275.326.749.749 0 0 1-.215.734L9.06 8l1.97 1.97a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L8 9.06l-1.97 1.97a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L6.94 8 4.97 6.03a.751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018Z"/></svg>');--md-admonition-icon--caution:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--danger:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M9.504.43a1.516 1.516 0 0 1 2.437 1.713L10.415 5.5h2.123c1.57 0 2.346 1.909 1.22 3.004l-7.34 7.142a1.249 1.249 0 0 1-.871.354h-.302a1.25 1.25 0 0 1-1.157-1.723L5.633 10.5H3.462c-1.57 0-2.346-1.909-1.22-3.004L9.503.429Zm1.047 1.074L3.286 8.571A.25.25 0 0 0 3.462 9H6.75a.75.75 0 0 1 .694 1.034l-1.713 4.188 6.982-6.793A.25.25 0 0 0 12.538 7H9.25a.75.75 0 0 1-.683-1.06l2.008-4.418.003-.006a.036.036 0 0 0-.004-.009l-.006-.006-.008-.001c-.003 0-.006.002-.009.004Z"/></svg>');--md-admonition-icon--bug:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M4.72.22a.75.75 0 0 1 1.06 0l1 .999a3.488 3.488 0 0 1 2.441 0l.999-1a.748.748 0 0 1 1.265.332.75.75 0 0 1-.205.729l-.775.776c.616.63.995 1.493.995 2.444v.327c0 .1-.009.197-.025.292.408.14.764.392 1.029.722l1.968-.787a.75.75 0 0 1 .556 1.392L13 7.258V9h2.25a.75.75 0 0 1 0 1.5H13v.5c0 .409-.049.806-.141 1.186l2.17.868a.75.75 0 0 1-.557 1.392l-2.184-.873A4.997 4.997 0 0 1 8 16a4.997 4.997 0 0 1-4.288-2.427l-2.183.873a.75.75 0 0 1-.558-1.392l2.17-.868A5.036 5.036 0 0 1 3 11v-.5H.75a.75.75 0 0 1 0-1.5H3V7.258L.971 6.446a.75.75 0 0 1 .558-1.392l1.967.787c.265-.33.62-.583 1.03-.722a1.677 1.677 0 0 1-.026-.292V4.5c0-.951.38-1.814.995-2.444L4.72 1.28a.75.75 0 0 1 0-1.06Zm.53 6.28a.75.75 0 0 0-.75.75V11a3.5 3.5 0 1 0 7 0V7.25a.75.75 0 0 0-.75-.75ZM6.173 5h3.654A.172.172 0 0 0 10 4.827V4.5a2 2 0 1 0-4 0v.327c0 .096.077.173.173.173Z"/></svg>');--md-admonition-icon--example:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M5 5.782V2.5h-.25a.75.75 0 0 1 0-1.5h6.5a.75.75 0 0 1 0 1.5H11v3.282l3.666 5.76C15.619 13.04 14.543 15 12.767 15H3.233c-1.776 0-2.852-1.96-1.899-3.458Zm-2.4 6.565a.75.75 0 0 0 .633 1.153h9.534a.75.75 0 0 0 .633-1.153L12.225 10.5h-8.45ZM9.5 2.5h-3V6c0 .143-.04.283-.117.403L4.73 9h6.54L9.617 6.403A.746.746 0 0 1 9.5 6Z"/></svg>');--md-admonition-icon--quote:url('data:image/svg+xml;charset=utf-8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16"><path d="M1.75 2.5h10.5a.75.75 0 0 1 0 1.5H1.75a.75.75 0 0 1 0-1.5Zm4 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5Zm0 5h8.5a.75.75 0 0 1 0 1.5h-8.5a.75.75 0 0 1 0-1.5ZM2.5 7.75v6a.75.75 0 0 1-1.5 0v-6a.75.75 0 0 1 1.5 0Z"/></svg>');}</style>
+
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="cyan" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#5" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="软件工程复习资料" class="md-header__button md-logo" aria-label="软件工程复习资料" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            软件工程复习资料
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              第5章 总体设计
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" title="清空当前内容" aria-label="清空当前内容" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+    
+      
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  readme
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../%E7%AC%AC2%E7%AB%A0%20%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6/" class="md-tabs__link">
+          
+  
+  01 复习讲义
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../02-PPT/%E8%AF%BE%E4%BB%B6%E5%88%97%E8%A1%A8/" class="md-tabs__link">
+          
+  
+  02 PPT
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="md-tabs__link">
+          
+  
+  03 考前复习
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="软件工程复习资料" class="md-nav__button md-logo" aria-label="软件工程复习资料" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+
+    </a>
+    软件工程复习资料
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    readme
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="">
+            
+  
+  <span class="md-ellipsis">
+    01 复习讲义
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            01 复习讲义
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC2%E7%AB%A0%20%E5%8F%AF%E8%A1%8C%E6%80%A7%E7%A0%94%E7%A9%B6/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第2章 可行性研究
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC3%E7%AB%A0%20%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第3章 需求分析
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    第5章 总体设计
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    第5章 总体设计
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="总体设计概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      需要完成的任务
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="总体设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计的过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计的原则——模块化设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      设计的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块化的理论依据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块应该具有的性质&amp;如何确定模块的大小&amp;模块的评价方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      自顶向下设计 与 由底向上设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      功能型模块的标准
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块间以及模块内联系的设计准则
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块的独立性——总述
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模块的独立性——总述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      内聚与耦合的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块的独立性——耦合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模块的独立性——耦合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      非直接耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      标记耦合、特征耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制耦合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制耦合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      解决方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      外部耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      公共耦合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公共耦合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      存在的问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      内容耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现低耦合的方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块的独立性——聚合度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模块的独立性——聚合度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶然内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      过程内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      通信内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      顺序内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      功能内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免低内聚
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发式规则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则1 - 模块独立性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则2- 深度、 宽度、 扇出和扇入应适中
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发式规则2- 深度、 宽度、 扇出和扇入应适中">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      深度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      扇出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      扇入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则3- 模块的作用域应该在控制域之内
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则4- 力争降低模块接口的复杂程度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则5- 设计单入口、 单出口的模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则6- 模块功能应该可以预测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      用于总体设计的图形工具
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="用于总体设计的图形工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      层次图和HIPO图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      面向数据流的设计方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="面向数据流的设计方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      变换流
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      事务流
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构化设计方法（SD方法）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      概要设计的其他工作
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC6%E7%AB%A0%20%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第6章 详细设计
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC7%E7%AB%A0%20%E7%BC%96%E7%A0%81%E6%96%B9%E6%B3%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第7章 实现-编码方法
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../%E7%AC%AC8%E7%AB%A0%20%E6%B5%8B%E8%AF%95/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    软件工程导论 – 第7章 实现-软件测试
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    02 PPT
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            02 PPT
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../02-PPT/%E8%AF%BE%E4%BB%B6%E5%88%97%E8%A1%A8/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    课件列表
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  <span class="md-ellipsis">
+    03 考前复习
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            03 考前复习
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E5%A4%8D%E4%B9%A0%E5%A4%A7%E7%BA%B2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    复习大纲
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E4%B8%80%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第一章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E4%B8%83%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第七章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E4%B8%89%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第三章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E4%BA%8C%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第二章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E4%BA%94%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第五章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%85%AB%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第八章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%85%AD%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第六章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%8D%81%E4%B8%89%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第十三章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../03-%E8%80%83%E5%89%8D%E5%A4%8D%E4%B9%A0/%E7%AC%AC%E5%9B%9B%E7%AB%A0/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    第四章
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计概念
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="总体设计概念">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    <span class="md-ellipsis">
+      需要完成的任务
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="总体设计">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计的过程
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    <span class="md-ellipsis">
+      总体设计的原则——模块化设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    <span class="md-ellipsis">
+      设计的方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块化的理论依据
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块应该具有的性质&amp;如何确定模块的大小&amp;模块的评价方法
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    <span class="md-ellipsis">
+      自顶向下设计 与 由底向上设计
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    <span class="md-ellipsis">
+      功能型模块的标准
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块间以及模块内联系的设计准则
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块的独立性——总述
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模块的独立性——总述">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    <span class="md-ellipsis">
+      内聚与耦合的关系
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_14" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块的独立性——耦合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模块的独立性——耦合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_15" class="md-nav__link">
+    <span class="md-ellipsis">
+      非直接耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_16" class="md-nav__link">
+    <span class="md-ellipsis">
+      数据耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_17" class="md-nav__link">
+    <span class="md-ellipsis">
+      标记耦合、特征耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_18" class="md-nav__link">
+    <span class="md-ellipsis">
+      控制耦合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="控制耦合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_19" class="md-nav__link">
+    <span class="md-ellipsis">
+      解决方法
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_20" class="md-nav__link">
+    <span class="md-ellipsis">
+      外部耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_21" class="md-nav__link">
+    <span class="md-ellipsis">
+      公共耦合
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="公共耦合">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_22" class="md-nav__link">
+    <span class="md-ellipsis">
+      存在的问题
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_23" class="md-nav__link">
+    <span class="md-ellipsis">
+      内容耦合
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_24" class="md-nav__link">
+    <span class="md-ellipsis">
+      实现低耦合的方式
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_25" class="md-nav__link">
+    <span class="md-ellipsis">
+      模块的独立性——聚合度
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="模块的独立性——聚合度">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_26" class="md-nav__link">
+    <span class="md-ellipsis">
+      偶然内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_27" class="md-nav__link">
+    <span class="md-ellipsis">
+      逻辑内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_28" class="md-nav__link">
+    <span class="md-ellipsis">
+      时间内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_29" class="md-nav__link">
+    <span class="md-ellipsis">
+      过程内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_30" class="md-nav__link">
+    <span class="md-ellipsis">
+      通信内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_31" class="md-nav__link">
+    <span class="md-ellipsis">
+      顺序内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_32" class="md-nav__link">
+    <span class="md-ellipsis">
+      功能内聚
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_33" class="md-nav__link">
+    <span class="md-ellipsis">
+      避免低内聚
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_34" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发式规则">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则1 - 模块独立性
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则2- 深度、 宽度、 扇出和扇入应适中
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="启发式规则2- 深度、 宽度、 扇出和扇入应适中">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_35" class="md-nav__link">
+    <span class="md-ellipsis">
+      深度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_36" class="md-nav__link">
+    <span class="md-ellipsis">
+      宽度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_37" class="md-nav__link">
+    <span class="md-ellipsis">
+      扇出
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_38" class="md-nav__link">
+    <span class="md-ellipsis">
+      扇入
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则3- 模块的作用域应该在控制域之内
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则4- 力争降低模块接口的复杂程度
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则5- 设计单入口、 单出口的模块
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#6-" class="md-nav__link">
+    <span class="md-ellipsis">
+      启发式规则6- 模块功能应该可以预测
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_39" class="md-nav__link">
+    <span class="md-ellipsis">
+      用于总体设计的图形工具
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="用于总体设计的图形工具">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#hipo" class="md-nav__link">
+    <span class="md-ellipsis">
+      层次图和HIPO图
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_40" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构图
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_41" class="md-nav__link">
+    <span class="md-ellipsis">
+      面向数据流的设计方法
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="面向数据流的设计方法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_42" class="md-nav__link">
+    <span class="md-ellipsis">
+      变换流
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_43" class="md-nav__link">
+    <span class="md-ellipsis">
+      事务流
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#sd" class="md-nav__link">
+    <span class="md-ellipsis">
+      结构化设计方法（SD方法）
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_44" class="md-nav__link">
+    <span class="md-ellipsis">
+      概要设计的其他工作
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="5">第5章 总体设计</h1>
+<h2 id="_1">总体设计概念</h2>
+<p>总体设计（概要设计、初步设计）：回答“概括来说，这一个系统应该怎么设计”</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>从需求分析的回答做什么到怎么做</p>
+</div>
+<p>如果没有设计，只能建立一个不稳定的系统结构。  </p>
+<p><img alt="image-20240515212227813" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515212227813.png" /></p>
+<h3 id="_2">需要完成的任务</h3>
+<p>总的来说，有以下两点：</p>
+<ol>
+<li>应划分出组成系统的物理元素——程序、文件、数据库、人工过程和文档等  </li>
+<li>确定系统中每个程序由哪些模块组成以及这些模块相互间的关系。  </li>
+</ol>
+<p>要将<strong>分析的模型</strong>转化为<strong>设计的模型</strong></p>
+<p><img alt="image-20240515212651468" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515212651468.png" /></p>
+<ol>
+<li>数据设计（由数据字典【主要】、数据流图得到）：设计数据结构</li>
+<li>体系结构设计（数据流图）：软件的主要结构性元素  </li>
+<li>接口设计（数据流图）：<strong>软件内部</strong>， <strong>软件和协作系统之间</strong>以及<strong>软件同人之间如何通信</strong>。  </li>
+<li>过程设计（加工规约）  ：</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>设计不是编码， 编码也不是设计。  </p>
+</div>
+<h2 id="_3">总体设计</h2>
+<h3 id="_4">总体设计的过程</h3>
+<p>通常由系统设计和结构设计组成。</p>
+<ul>
+<li>
+<p>系统设计阶段确定系统的具体实现方案。</p>
+</li>
+<li>
+<p>结构设计阶段确定软件的结构。</p>
+</li>
+</ul>
+<p><img alt="image-20240515214045116" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515214045116.png" /></p>
+<h3 id="_5">总体设计的原则——模块化设计</h3>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>模块化设计的基本原则是“高内聚低耦合”</p>
+</div>
+<ul>
+<li>模块(module)是<strong>数据说明和可执行语句</strong>等程序对象的<strong>集合</strong>，每个模块<strong>单独命名并且可以通过名字对模块进行访问</strong>。  </li>
+<li>模块具有 输入和输出， 功能， 内部数据，程序代码等四个特性。</li>
+<li>模块是完成一个独立功能的程序单元。  </li>
+<li>模块化设计就是把大型的软件按照规定的原则分解为：①较小的②相对独立③又相关的模块的设计方法。</li>
+<li>指导思想为：<strong>分解，信息隐藏，独立性。</strong></li>
+<li>为的就是：①降低开发难度；②增加系统的可维护性</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>模块内部的数据与过程， 应该对不需要了解这些数据与过程的模块隐藏起来。 仅仅暴露给外界接口以供访问。目的是为了增强独立性，提高可维护性，避免发错误传播到其他模块中</p>
+</div>
+<h3 id="_6">设计的方法</h3>
+<ol>
+<li>分解</li>
+<li>确定每一个模块的功能</li>
+<li>决定调用关系</li>
+<li>决定模块之间的界面，相互之间怎么传递信息。</li>
+</ol>
+<h3 id="_7">模块化的理论依据</h3>
+<p>模块化论据：</p>
+<ul>
+<li>C(x)定义为问题x的<strong>感知复杂性</strong></li>
+<li>E(x)定义为解决问题x所需要的<strong>工作量</strong></li>
+</ul>
+<p>对于p1和p2两个问题，
+若 <span class="arithmatex">\(C(p1) &gt; C(p2)，则 E(p1) &gt; E(p2)\)</span></p>
+<p><span class="arithmatex">\(C(p1 + p2) &gt; C(p1) + C(p2)\)</span>​</p>
+<p><span class="arithmatex">\(E(p1 + p2) &gt; E(p1) + E(p2)\)</span>​</p>
+<p>也就是说：复杂性减小，工作量减小。</p>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>不要过度模块化！每个模块的简单性将被集成的复杂性所掩盖。</p>
+</div>
+<p><img alt="image-20240515215054904" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515215054904.png" /></p>
+<h3 id="_8">模块应该具有的性质&amp;如何确定模块的大小&amp;模块的评价方法</h3>
+<p>判定依据如下：</p>
+<ol>
+<li>模块可分解性</li>
+<li>模块可组装性</li>
+<li>模块可理解性：模块可以被独立理解  </li>
+<li>模块连续性(系统需求的微小修改只导致对个别模块， 而不是整个系统的修改)</li>
+<li>模块保护（如果模块内出现了异常， 它的影响只局限在该模块内部， 则由错误引起的副作用小）</li>
+</ol>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>不要过度模块化每个模块的简单性将被集成的复杂性所掩盖。  </p>
+</div>
+<h3 id="_9">自顶向下设计 与 由底向上设计</h3>
+<p>自顶向下设计的特点：</p>
+<ul>
+<li>易于修改和扩展</li>
+<li>整体测试较易通过</li>
+<li>需要进行详细的可行性论证（害怕到时候实现不了）</li>
+</ul>
+<p>由底向上设计的特点：</p>
+<ul>
+<li>可能导致较大的重新设计</li>
+<li>整体测试中可能在模块接口间发现不一致等问题</li>
+<li>如果在可行性上出现问题，可以较早发现</li>
+</ul>
+<h3 id="_10">功能型模块的标准</h3>
+<ol>
+<li>用一个简短的语句来描述这一个模块做什么</li>
+<li>只做一件事情</li>
+</ol>
+<h3 id="_11">模块间以及模块内联系的设计准则</h3>
+<ol>
+<li>每个模块只做一件事情</li>
+<li>通过简单的数据类型传递参数</li>
+<li>传递的参数尽可能少</li>
+</ol>
+<h2 id="_12">模块的独立性——总述</h2>
+<p>模块独立性（module independence） 概括了把软件划分为模块时要遵守的准则， 也是判断模块构造是否合理的标准。  </p>
+<p>度量独立性的两个方式：<strong>内聚</strong>，<strong>耦合</strong></p>
+<ul>
+<li>耦合：用于衡量<strong>不同模块</strong>彼此间互相依赖（连接） 的<strong>紧密程度</strong>；</li>
+<li>内聚：用于衡量<strong>一个模块</strong>内部各个元素间彼此结合的紧密程度。</li>
+</ul>
+<h3 id="_13">内聚与耦合的关系</h3>
+<ol>
+<li>内聚和耦合是<strong>密切相关</strong>的， 模块内的<strong>高内聚往往意味着模块间的低耦合</strong>。  </li>
+<li>实践表明， 内聚更重要， 应该把更多注意力集中到提高模块的内聚程度上。  </li>
+</ol>
+<h2 id="_14">模块的独立性——耦合</h2>
+<p>耦合强弱取决于模块间接口的复杂程度、 进入或访问一个模块的点以及通过接口的数据。</p>
+<p><strong>松散耦合 VS 精密耦合</strong></p>
+<ul>
+<li>松散耦合：当一个模块（子系统）发生变化的时候，对其他模块（子系统）的影响很小</li>
+<li>紧密耦合：反之。</li>
+</ul>
+<p>耦合度的三种分类：</p>
+<ol>
+<li>无耦合</li>
+<li>松散耦合</li>
+<li>紧密耦合</li>
+</ol>
+<p>耦合度的七种详细分类：</p>
+<ol>
+<li>非直接耦合（最好）</li>
+<li>数据耦合</li>
+<li>标记耦合</li>
+<li>控制耦合</li>
+<li>外部耦合</li>
+<li>公共耦合</li>
+<li>内容耦合（寄）</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>一定要区分，必考！要求判断那一种类型</p>
+</div>
+<h3 id="_15">非直接耦合</h3>
+<p>两个模块之间没有联系， 则它们之间为非直接耦合。模块之间的联系是通过主模块的控制和调用实现的，模块独立性最强</p>
+<h3 id="_16">数据耦合</h3>
+<p>被调用模块的输入与输出是简单的参数或者是数据结构（该数据结构中的所有元素为被调用的模块使用） ，则它们之间为数据耦合。</p>
+<blockquote>
+<p>主打一个要啥传啥</p>
+</blockquote>
+<h3 id="_17">标记耦合、特征耦合</h3>
+<p>两个模块通过传递数据结构(<strong>不是简单数据， 而是记录、数组等</strong>)加以联系， 而被调用模块只需要部分数据项， 则称这两个模块之间存在标记耦合或特征耦合。</p>
+<blockquote>
+<p>就是说：传了一坨，但是只用了里面的一点点</p>
+</blockquote>
+<p><img alt="image-20240515222024389" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515222024389.png" /></p>
+<h3 id="_18">控制耦合</h3>
+<p>如果两个模块中的一个模块给另一个模块传递<strong>控制信息</strong>， 则它们具有控制耦合。</p>
+<p><img alt="image-20240515221541399" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515221541399.png" /></p>
+<p>通过传入一个选择的参数来决定被调用的模块执行哪一种操作。</p>
+<h4 id="_19">解决方法</h4>
+<ol>
+<li>面向过程：把功能拆开，一个功能一个函数（虽然很low，但是提高了可维护性）</li>
+<li>面对对象：直接使用多态，根据对象的类来具体决定使用哪一种方法。</li>
+</ol>
+<pre><code class="language-java">interface 形状 {
+    public void 画图();
+} 
+
+class 圆形 implements 形状 {
+    public void 画图() {
+        System.out.println(&quot;圆形&quot;);
+    }
+} 
+
+class 三角形 implements 形状 {
+    public void 画图() {
+        System.out.println(&quot;三角形&quot;);
+    }
+} 
+class Test {
+    public static void 画图(形状 graphic) {
+        graphic.画图();
+    }
+
+    public static void main(String[] args) {
+        形状 a = new 圆形();
+        形状 b = new 三角形();
+        Test.画图(a); // 打印出 圆形
+        Test.画图(b); // 打印出 三角形
+    }
+}
+</code></pre>
+<h3 id="_20">外部耦合</h3>
+<p>当模块与软件的<strong>外部环境联结</strong>在一起， 并<strong>受到约束</strong>时就出现较高程度的耦合， 则它们之间为外部耦合。</p>
+<p>两个模块共享一个<strong>外部强加的数据结构</strong>、 <strong>通信协议或者设备接口</strong>。 外部耦合基本上与外部工具和设备的通信有关 。</p>
+<h3 id="_21">公共耦合</h3>
+<p>如果两个模块都可以<strong>存取相同的全局数据</strong>， 则它们之间是公共耦合。</p>
+<p><img alt="image-20240515221131821" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515221131821.png" /></p>
+<h4 id="_22">存在的问题</h4>
+<ol>
+<li>改一下公共的全局数据，那么所有调用它的模块全改</li>
+<li>对这一个变量的存取无法控制</li>
+<li>随着耦合模块个数增加，复杂程度增加</li>
+</ol>
+<p>解决方法是：使用信息隐藏来避免公共耦合</p>
+<h3 id="_23">内容耦合</h3>
+<p>如果两个模块中的一个直接引用了另一个模块的内容，则它们之间是内容耦合。</p>
+<ol>
+<li>直接goto到别的模块那里</li>
+<li>没有通过接口，直接访问了其他模块的数据</li>
+</ol>
+<h3 id="_24">实现低耦合的方式</h3>
+<p><img alt="image-20240515222321523" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515222321523.png" /></p>
+<ol>
+<li>非直接耦合（最好）</li>
+<li>数据耦合（用）</li>
+<li>标记耦合（转化为数据耦合）</li>
+<li>控制耦合（少用，尽量和谐掉）</li>
+<li>外部耦合（...）</li>
+<li>公共耦合（限制范围）</li>
+<li>内容耦合（这辈子不能碰）</li>
+</ol>
+<h2 id="_25">模块的独立性——聚合度</h2>
+<p>简单地说， 理想内聚的模块只做一件事情。  </p>
+<div class="admonition tip">
+<p class="admonition-title">分情况讨论</p>
+<ol>
+<li>高内聚：用！</li>
+<li>中等内聚：也行，其实和高内聚也差不了多少</li>
+<li>低内聚：坚决不用     </li>
+</ol>
+</div>
+<h3 id="_26">偶然内聚</h3>
+<p>无关的函数、 过程或者数据出现在同一个模块里。  相当于没有联系、联系很少。</p>
+<p>缺点：</p>
+<ol>
+<li>可维护性下降</li>
+<li>这样复用不了一点</li>
+</ol>
+<p>解决：</p>
+<ul>
+<li>分为更小的模块</li>
+</ul>
+<h3 id="_27">逻辑内聚</h3>
+<p>把<strong>几种功能组合在一起</strong>， 每次调用时， 则<strong>由传递给模块的判定参数</strong>来<strong>确定该模块应执行哪一种功能</strong>。</p>
+<ol>
+<li>接口难以理解</li>
+<li>纠缠，可维护性低</li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>和控制耦合类似，可以参考解决。</p>
+</div>
+<p><img alt="image-20240515223547934" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515223547934.png" /></p>
+<h3 id="_28">时间内聚</h3>
+<p>由于执行的时间（时机）是相同的</p>
+<p>例如初始化模块</p>
+<p>问题：</p>
+<ol>
+<li>不同功能的模块混在了一起，不好理解</li>
+<li>由于含有了很多功能的内容，修改一处，其他地方也要改。</li>
+</ol>
+<h3 id="_29">过程内聚</h3>
+<p>一个模块内部各组成部分的处理<strong>动作各不相同</strong>， 彼此也<strong>没有什么关系</strong>， 但它们都受<strong>同一个控制流</strong>支配， 决定它们的执行顺序。</p>
+<p><img alt="image-20240515223926016" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515223926016.png" /></p>
+<h3 id="_30">通信内聚</h3>
+<p>出现在同一个模块里是由于操作或者生成同一个数据集。 （引用共同的数据）</p>
+<p>例如对一个东西进行增删改查</p>
+<h3 id="_31">顺序内聚</h3>
+<p>一个模块内部各个组成部分的处理动作是<strong>按顺序执行</strong>的， 且<strong>前一个处理动作所产生的输出数据是下一个处理动作的输入数据</strong>。</p>
+<h3 id="_32">功能内聚</h3>
+<p>模块内所有处理元素属于一个整体， 完成一个单一的功能。</p>
+<p>【没有一句多余的代码】</p>
+<h3 id="_33">避免低内聚</h3>
+<p>在实际工作中， <strong>确定内聚的精确级别是不必要的</strong>， 重要的是<strong>力争高内聚和识别低内聚</strong>，可以使得设计的软件具有较高的功能独立性。  </p>
+<h2 id="_34">启发式规则</h2>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>注： 在软件开发过程中<strong>既要充分重视和利用</strong>这些启发式规则，又要从实际情况出发<strong>避免生搬硬套</strong>  。</p>
+<p>启发式规则是人们从长期的软件开发实践中总结出来的规则， 在设计中应当普遍严格遵循【错误】要避免生搬硬套</p>
+</div>
+<h3 id="1-">启发式规则1 - 模块独立性</h3>
+<ol>
+<li>高内聚，低耦合（要重点注重提高内聚）</li>
+<li>要注意模块的大小划分。太大不好理解，太小接口太复杂</li>
+<li>适当控制宽度和深度</li>
+</ol>
+<h3 id="2-">启发式规则2- 深度、 宽度、 扇出和扇入应适中</h3>
+<h4 id="_35">深度</h4>
+<p>就是模块的总层数，过大表示分工过细。  </p>
+<h4 id="_36">宽度</h4>
+<p><strong>同一层</strong>上模块数的最大值。 过大表示系统复杂度大。</p>
+<p>记住是同一层</p>
+<p><img alt="image-20240515225210857" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515225210857.png" /></p>
+<p>这个宽度是7！</p>
+<h4 id="_37">扇出</h4>
+<p>一个模块<strong>直接</strong>调用\控制的模块数。</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>间接的不算</p>
+</div>
+<p>理论上: <span class="arithmatex">\(3 \le fan-out \le 9\)</span>，一般3,4 上限 5-9</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>奇妙的<span class="arithmatex">\(7\pm2\)</span></p>
+</div>
+<ul>
+<li>如果一个模块的扇出太大了，那么增加中间的模块。</li>
+<li>一般来说， 顶层扇出高， 中间扇出少， 低层高扇入。  </li>
+</ul>
+<p><img alt="image-20240515225854241" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515225854241.png" /></p>
+<h4 id="_38">扇入</h4>
+<p>直接调用该模块的模块数。</p>
+<p>越大越好（不破坏独立性的前提下），表示了这个模块的可重用性高</p>
+<h3 id="3-">启发式规则3- 模块的作用域应该在控制域之内</h3>
+<p>模块的<strong>作用范围</strong>(作用域)保持在该模块的<strong>控制范围</strong>（控制域）内 </p>
+<p><img alt="image-20240515230111374" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515230111374.png" /></p>
+<p><img alt="image-20240515230135150" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515230135150.png" /></p>
+<h3 id="4-">启发式规则4- 力争降低模块接口的复杂程度</h3>
+<p>模块接口的复杂性是引起软件错误的一个主要原因。 接口设计应该使得信息<strong>传递简单</strong>并且与模块的功能一致。  </p>
+<h3 id="5-">启发式规则5- 设计单入口、 单出口的模块</h3>
+<p>避免内容耦合（目前的goto好像只能在函数里面跳，应该每个模块都是单入口，单出口的）</p>
+<h3 id="6-">启发式规则6- 模块功能应该可以预测</h3>
+<p>相同输入必定引发相同输出。</p>
+<p>有了静态变量或者是全局变量就说不过去了</p>
+<h2 id="_39">用于总体设计的图形工具</h2>
+<h3 id="hipo">层次图和HIPO图</h3>
+<p>层次图用来描述软件的层次结构。矩形框代表一个模块，方框间的连线表示调用关系</p>
+<p><img alt="image-20240515230722733" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515230722733.png" /></p>
+<p>HIPO图是美国IBM公司发明的“层次图加输入/处理/输出图”的英文缩写。</p>
+<ol>
+<li>输入-处理-输出</li>
+<li>除了顶层模块之外，增加了编号</li>
+</ol>
+<div class="admonition danger">
+<p class="admonition-title">Danger</p>
+<p>带编号的就是推荐使用的</p>
+</div>
+<p><img alt="image-20240515230931173" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515230931173.png" /></p>
+<h3 id="_40">结构图</h3>
+<p>每个<strong>方框代表一个模块</strong>， 框内注明模块的名字或主要功能； 方框之间的<strong>箭头（ 或直线） 表示模块间的调用关系。</strong>  用带注释的箭头表示模块调用过程中模块之间传递的信息。   </p>
+<ul>
+<li>尾部是空心圆表示传递的是数据</li>
+<li>尾部是实心圆则表示传递的是控制信息</li>
+</ul>
+<p>注意：</p>
+<ol>
+<li>（输入模块在左， 计算模块在中间，输出模块在右——一般习惯）</li>
+<li><strong>一个模块在结构图中只能出现一次。</strong>  </li>
+</ol>
+<p><img alt="image-20240515231303993" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231303993.png" /></p>
+<p><img alt="image-20240515231309581" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231309581.png" /></p>
+<p><img alt="image-20240515231313732" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231313732.png" /></p>
+<h2 id="_41">面向数据流的设计方法</h2>
+<h3 id="_42">变换流</h3>
+<p>根据基本系统模型， 信息通常①以“ 外部世界” 的形式进入软件系统， ②经过处理 ③以后再以“ 外部世界” 的形式离开系统。   </p>
+<p><img alt="image-20240515231449349" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231449349.png" /></p>
+<h3 id="_43">事务流</h3>
+<p>数据沿输入通路到达一个处理T， 这个处理根据输入数据的类型在若干个动作序列中<strong>选出一个来执行</strong>。  </p>
+<p>事务型结构由至少<strong>一条接受路径</strong>、 <strong>一个事务中心</strong>和<strong>若干条动作路径</strong>组成。  </p>
+<p><img alt="image-20240515231728022" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231728022.png" /></p>
+<p><img alt="image-20240515231745518" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231745518.png" /></p>
+<h2 id="sd">结构化设计方法（SD方法）</h2>
+<p><img alt="image-20240515231816646" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231816646-1715786297249-1.png" /></p>
+<p>第一步是建立符合需求规格说明书要求的初始结构图（一般由数据流图导出初始结构图） ；</p>
+<p>第二步再用块间联系和块内联系等概念对初始结构图做进一步改进。</p>
+<p><img alt="image-20240515231911340" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231911340.png" /></p>
+<h2 id="_44">概要设计的其他工作</h2>
+<p><img alt="image-20240515231957258" src="../%E7%AC%AC5%E7%AB%A0%20%E6%80%BB%E4%BD%93%E8%AE%BE%E8%AE%A1.assets/image-20240515231957258.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var tab,labels=set.querySelector(".tabbed-labels");for(tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+  回到页面顶部
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="页脚" >
+        
+          
+          <a href="../%E7%AC%AC3%E7%AB%A0%20%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 第3章 需求分析">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              <div class="md-ellipsis">
+                第3章 需求分析
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../%E7%AC%AC6%E7%AB%A0%20%E8%AF%A6%E7%BB%86%E8%AE%BE%E8%AE%A1/" class="md-footer__link md-footer__link--next" aria-label="下一页: 第6章 详细设计">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              <div class="md-ellipsis">
+                第6章 详细设计
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.footer", "navigation.top", "navigation.sections", "content.action.edit", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "\u5df2\u590d\u5236", "clipboard.copy": "\u590d\u5236", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.term.missing": "\u7f3a\u5c11", "select.version": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.c8d2eff1.min.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>
